@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MTGFront_Back.DTOs.Scryfall.Sets
+namespace MTGMVC.DTOs.Scryfall.Sets
 {
     public class ScryfallSetDto
     {

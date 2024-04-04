@@ -1,12 +1,12 @@
-﻿using MTGFront_Back.DTOs.Scryfall.Sets;
-using MTGFront_Back.Repositories.CommandText;
-using Dapper;
-using MTGFront_Back.Models;
+﻿using Dapper;
 using System.Linq;
 using System.Xml.Linq;
 using System;
+using MTGMVC.Repositories.CommandText;
+using MTGMVC.DTOs.Scryfall.Sets;
+using MTGMVC.Models;
 
-namespace MTGFront_Back.Repositories
+namespace MTGMVC.Repositories
 {
     public interface ISetRepository
     {
@@ -15,7 +15,7 @@ namespace MTGFront_Back.Repositories
         Task<IList<SetModel>> GetAllSetNames();
     }
 
-    public class SetRepository: BaseRepository, ISetRepository
+    public class SetRepository : BaseRepository, ISetRepository
     {
         private readonly ICommandText _commandText;
 

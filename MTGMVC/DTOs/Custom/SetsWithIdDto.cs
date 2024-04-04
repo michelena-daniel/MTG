@@ -1,4 +1,4 @@
-﻿namespace MTGFront_Back.DTOs.Custom
+﻿namespace MTGMVC.DTOs.Custom
 {
     public class SetsWithIdDto
     {

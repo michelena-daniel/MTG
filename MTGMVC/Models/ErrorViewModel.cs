@@ -1,4 +1,4 @@
-namespace MTGFront_Back.Models
+namespace MTGMVC.Models
 {
     public class ErrorViewModel
     {

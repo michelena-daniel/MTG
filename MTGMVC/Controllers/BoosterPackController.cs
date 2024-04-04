@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
-using MTGFront_Back.Models;
-using MTGFront_Back.Services;
-using MTGFront_Back.DTOs.Custom;
+using MTGMVC.DTOs.Custom;
+using MTGMVC.Models;
+using MTGMVC.Services;
 
-namespace MTGFront_Back.Controllers
+namespace MTGMVC.Controllers
 {
     public class BoosterPackController : Controller
     {
@@ -50,7 +50,7 @@ namespace MTGFront_Back.Controllers
             catch
             {
                 return RedirectToAction("BoosterError");
-            }            
+            }
         }
 
         public IActionResult BoosterError()

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MTGFront_Back.DTOs.Scryfall.Cards
+namespace MTGMVC.DTOs.Scryfall.Cards
 {
     public class PricesDto
     {

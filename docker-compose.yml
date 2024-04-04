@@ -1,0 +1,47 @@
+﻿version: '3.4'
+
+services:
+  mtgmvc:
+    image: ${DOCKER_REGISTRY-}mtgmvc
+    build:
+      context: .
+      dockerfile: MTGMVC/Dockerfile
+    networks:
+      - mtgmvc-network
+    depends_on:
+      - "redis"
+  redis:
+    container_name: mtg-redis
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./dаta:/root/redis
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    networks:
+      - mtgmvc-network
+  mssql:
+    container_name: mtg-mssql-db
+    hostname: mssql-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: 'Admin@123'
+      MSSQL_DATA_DIR: /var/opt/mssql/data
+      MSSQL_PID: 'Developer' 
+      MSSQL_TCP_PORT: 1433
+    ports: 
+      - "1455:1433"
+    volumes:
+      - ./data:/var/opt/mssql/data
+      - ./log:/var/opt/mssql/log
+      - ./secrets:/var/opt/mssql/secrets
+    networks:
+    - mtgmvc-network
+networks: 
+    mtgmvc-network:
+        driver: bridge

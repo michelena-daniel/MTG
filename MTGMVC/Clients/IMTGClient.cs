@@ -1,9 +1,9 @@
-﻿using MTGFront_Back.DTOs.MtgApi.Booster;
-using MTGFront_Back.DTOs.MtgApi.Card;
-using MTGFront_Back.DTOs.MtgApi.Set;
+﻿using MTGMVC.DTOs.MtgApi.Booster;
+using MTGMVC.DTOs.MtgApi.Card;
+using MTGMVC.DTOs.MtgApi.Set;
 using Newtonsoft.Json;
 
-namespace MTGFront_Back.Clients
+namespace MTGMVC.Clients
 {
     public interface IMTGClient
     {

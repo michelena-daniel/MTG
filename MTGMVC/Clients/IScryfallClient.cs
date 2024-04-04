@@ -1,8 +1,8 @@
-﻿using MTGFront_Back.DTOs.Scryfall.Cards;
-using MTGFront_Back.DTOs.Scryfall.Sets;
+﻿using MTGMVC.DTOs.Scryfall.Cards;
+using MTGMVC.DTOs.Scryfall.Sets;
 using Newtonsoft.Json;
 
-namespace MTGFront_Back.Clients
+namespace MTGMVC.Clients
 {
     public interface IScryfallClient
     {
@@ -54,7 +54,7 @@ namespace MTGFront_Back.Clients
             {
                 _logger.LogError("Unable to get set from Scryfall client {ex}", ex);
                 throw;
-            }            
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
-namespace MTGFront_Back.DTOs.MtgApi
+namespace MTGMVC.DTOs.MtgApi
 {
     public class LegalityDto
     {

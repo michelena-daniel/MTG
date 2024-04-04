@@ -1,9 +1,11 @@
-﻿using MTGFront_Back.Clients;
-using MTGFront_Back.DTOs.Scryfall.Cards;
-using MTGFront_Back.Models;
-using MTGFront_Back.Repositories;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using MTGMVC.Clients;
+using MTGMVC.DTOs.Scryfall.Cards;
+using MTGMVC.Extensions;
+using MTGMVC.Models;
+using MTGMVC.Repositories;
 
-namespace MTGFront_Back.Services
+namespace MTGMVC.Services
 {
     public interface IMagicDataWriterService
     {
@@ -16,35 +18,46 @@ namespace MTGFront_Back.Services
         private ISetRepository _setRepository;
         private IScryfallClient _scryfallClient;
         private ILogger<MagicDataWriterService> _logger;
+        private IDistributedCache _cache;
 
-        public MagicDataWriterService(ISetRepository setRepository, IScryfallClient scryfallClient, ILogger<MagicDataWriterService> logger)
+        public MagicDataWriterService(ISetRepository setRepository, IScryfallClient scryfallClient, ILogger<MagicDataWriterService> logger, IDistributedCache cache)
         {
             _setRepository = setRepository;
             _scryfallClient = scryfallClient;
             _logger = logger;
+            _cache = cache;
         }
 
         public async Task<IList<SetModel>> GetAllSetNamesAsync()
         {
             try
             {
-                var persistedSets = await _setRepository.CountSets();
-                if (persistedSets == 0)
+                var cachedRecords = await _cache.GetRecordAsync<IList<SetModel>>("sets");
+
+                if (cachedRecords == null || !cachedRecords.Any())
                 {
-                    var scryfallSets = await _scryfallClient.GetAllScryfallSetsAsync();
-                    foreach(var set in scryfallSets.ScryfallSets)
+                    var persistedSets = await _setRepository.CountSets();
+                    if (persistedSets == 0)
                     {
-                        await _setRepository.InsertSet(set);
+                        var scryfallSets = await _scryfallClient.GetAllScryfallSetsAsync();
+                        foreach (var set in scryfallSets.ScryfallSets)
+                        {
+                            await _setRepository.InsertSet(set);
+                        }
                     }
+
+                    var setNames = await _setRepository.GetAllSetNames();
+                    await _cache.SetRecordAsync("sets", setNames, TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(60));
+                    return setNames;
                 }
 
-                return await _setRepository.GetAllSetNames();
+                return cachedRecords;
             }
             catch (Exception ex)
             {
                 _logger.LogError("Unable to get sets {ex}", ex);
                 throw;
-            }            
+            }
         }
 
         public async Task<ScryfallCardDto> GetRandomCardBySet(string setCode)

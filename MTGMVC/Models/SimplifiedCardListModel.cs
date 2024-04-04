@@ -1,6 +1,6 @@
-﻿using MTGFront_Back.DTOs.Custom;
+﻿using MTGMVC.DTOs.Custom;
 
-namespace MTGFront_Back.Models
+namespace MTGMVC.Models
 {
     public class SimplifiedCardListModel
     {
