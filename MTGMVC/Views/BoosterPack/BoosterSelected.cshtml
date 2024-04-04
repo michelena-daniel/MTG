@@ -1,0 +1,19 @@
+﻿@model BoosterPackViewModel;
+@{
+    ViewData["Title"] = "BoosterSelected";
+
+}
+
+@* @foreach (var card in Model.SimplifiedCardListModel.SimplifiedCardList)
+{
+    <div style="margin-right:10px;margin-left:10px;">
+        <img src="@card.ImgUrl" alt="Card" style="padding-top:20px;height:30%;width:30%">
+    </div>
+} *@
+
+@foreach (var card in Model.SimplifiedCardListModel.SimplifiedCardList)
+{
+    <div>
+        <img src="@card.ImgUrl" alt="Card">
+    </div>
+}

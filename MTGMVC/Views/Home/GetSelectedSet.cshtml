@@ -1,0 +1,30 @@
+﻿@model SetViewModel;
+@{
+    ViewData["Title"] = "GetSelectedCard";
+
+}
+
+<head>
+</head>
+<body>
+    <div class="text-center">
+        <h3>SET CODE: </h3>
+        @Html.Label((string)Model.SelectedSet)
+        <h3>NAME: </h3>
+        @Html.Label((string)ViewBag.CardName)
+        <h3>SET:</h3>
+        @Html.Label((string)ViewBag.CardSetName)
+    </div>
+
+    <div class="text-center" style="padding-top:20px;">
+        <img src="@ViewBag.ImageUrl" alt="Card" style="padding-top:20px;height:30%;width:30%">
+    </div>
+
+    <form asp-controller="Home" asp-action="RedirectToCard" method="post">
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">OK</button>
+        </div>
+    </form>
+</body>
+
+

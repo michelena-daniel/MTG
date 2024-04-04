@@ -1,0 +1,21 @@
+﻿@using MTGFront_Back.DTOs.Custom
+@model SetViewModel
+@{
+    ViewData["Title"] = "Card";
+}
+
+<form asp-controller="Home" asp-action="GetSelectedSet" method="post">
+    <div class="text-center">
+        <h2>Select Set: </h2>
+        <div class="text-center">
+            <select class="form-select" asp-items="Model.SetList" asp-for="SelectedSet">
+                <option value="defaultoption">---Please select a set---</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary" style="margin-top:20px;">Submit</button>
+        </div>
+    </div>
+</form>
+
+
