@@ -1,2 +1,7 @@
 # MTG
- Hobby fun project to consume MTG API https://api.magicthegathering.io/v1/ and Scryfall API https://api.scryfall.com/ in order to process and persist their data.  Resources  Readme  Activity Stars  1 star Watchers  1 watching Forks  0 forks Releases No releases published Create a new release Packages No packages published Publish your first package Languages C# 84.5%   HTML 11.6%   CSS 2.1%   Dockerfile 1.4%   JavaScript 0.4% Suggested workflows Based on your tech stack .NET logo .NET Build and test a .NET or ASP.NET Core project. Webpack logo Webpack Build a NodeJS project with npm and webpack. Gulp logo Gulp Build a NodeJS project with npm and gulp. More workflows
+ Hobby fun project to consume MTG API https://api.magicthegathering.io/v1/ and Scryfall API https://api.scryfall.com/ in order to process and persist their data. 
+
+ Tech stack trace:
+
+- Pseudo MVC pattern, .NET 8.
+- Dapper as micro-ORM for quick and light querying using SQL over linQ for now.
