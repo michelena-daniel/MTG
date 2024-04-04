@@ -11,7 +11,7 @@ namespace MTGMVC.Repositories
         protected BaseRepository(IConfiguration configuration)
         {
             _configuration = configuration;
-            _ConnectionString = _configuration.GetConnectionString("DefaultConnection");
+            _ConnectionString = _configuration.GetConnectionString("DefaultConnection") ?? "";
         }
 
         // use for buffered queries that return a type
