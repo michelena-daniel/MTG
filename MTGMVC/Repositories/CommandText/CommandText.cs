@@ -1,4 +1,4 @@
-﻿namespace MTGFront_Back.Repositories.CommandText
+﻿namespace MTGMVC.Repositories.CommandText
 {
     public interface ICommandText
     {

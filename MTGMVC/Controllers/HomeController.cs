@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using MTGFront_Back.Models;
-using MTGFront_Back.Services;
+using MTGMVC.Models;
+using MTGMVC.Services;
 using System.Diagnostics;
 
-namespace MTGFront_Back.Controllers
+namespace MTGMVC.Controllers
 {
     public class HomeController : Controller
     {
@@ -35,7 +35,7 @@ namespace MTGFront_Back.Controllers
             var sets = await _dataWriterService.GetAllSetNamesAsync();
             model.SetList = [];
 
-            foreach(var set in sets)
+            foreach (var set in sets)
             {
                 model.SetList.Add(new SelectListItem { Text = set.Name, Value = set.Code });
             }
@@ -46,7 +46,7 @@ namespace MTGFront_Back.Controllers
         [HttpPost]
         public async Task<IActionResult> GetSelectedSet(SetViewModel model)
         {
-            if(model.SelectedSet == "defaultoption")
+            if (model.SelectedSet == "defaultoption")
             {
                 return RedirectToAction("Card");
             }

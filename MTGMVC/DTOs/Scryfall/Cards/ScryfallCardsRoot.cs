@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace MTGFront_Back.DTOs.Scryfall.Cards
+namespace MTGMVC.DTOs.Scryfall.Cards
 {
     public class ScryfallCardsRoot
     {

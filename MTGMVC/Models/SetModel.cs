@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MTGFront_Back.Models
+namespace MTGMVC.Models
 {
     public class SetModel
     {

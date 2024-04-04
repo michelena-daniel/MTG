@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace MTGFront_Back.Models
+namespace MTGMVC.Models
 {
     public class BoosterPackViewModel
     {

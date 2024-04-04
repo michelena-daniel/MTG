@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["MTGFront-Back/MTGFront-Back.csproj", "MTGFront-Back/"]
-RUN dotnet restore "./MTGFront-Back/MTGFront-Back.csproj"
+COPY ["MTG/MTGMVC.csproj", "MTGMVC/"]
+RUN dotnet restore "./MTG/MTGMVC.csproj"
 COPY . .
-WORKDIR "/src/MTGFront-Back"
-RUN dotnet build "./MTGFront-Back.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/MTGMVC"
+RUN dotnet build "./MTGMVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./MTGFront-Back.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./MTGMVC.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MTGFront-Back.dll"]
+ENTRYPOINT ["dotnet", "MTGMVC.dll"]

@@ -1,8 +1,8 @@
-﻿using MTGFront_Back.Clients;
-using MTGFront_Back.DTOs.Custom;
-using MTGFront_Back.DTOs.MtgApi.Booster;
+﻿using MTGMVC.Clients;
+using MTGMVC.DTOs.Custom;
+using MTGMVC.DTOs.MtgApi.Booster;
 
-namespace MTGFront_Back.Services
+namespace MTGMVC.Services
 {
     public interface IMTGService
     {
@@ -52,10 +52,10 @@ namespace MTGFront_Back.Services
                 }
                 return boosterPackSimplified;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ArgumentException($"Unable to get booster pack from MTG client {ex}", ex);
-            }            
+            }
         }
 
         public async Task<BoosterCardDto> GetRandomCardFromSet(string setCode)

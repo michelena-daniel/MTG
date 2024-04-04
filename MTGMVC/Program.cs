@@ -1,7 +1,7 @@
-using MTGFront_Back.Clients;
-using MTGFront_Back.Repositories;
-using MTGFront_Back.Repositories.CommandText;
-using MTGFront_Back.Services;
+using MTGMVC.Clients;
+using MTGMVC.Repositories;
+using MTGMVC.Repositories.CommandText;
+using MTGMVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +16,12 @@ builder.Services.AddHttpClient("Scryfall", (serviceProvider, httpClient) =>
 {
     //var mtgSettings = serviceProvider.GetRequiredService<IOptions<MtgSettings>>().Value;
     httpClient.BaseAddress = new Uri("https://api.scryfall.com/");
+});
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
+    options.InstanceName = "mtg-redis";
 });
 
 //Register own services
