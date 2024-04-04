@@ -30,7 +30,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: 'Y'
-      MSSQL_SA_PASSWORD: 'Admin@123'
+      MSSQL_SA_PASSWORD: /run/secrets/mssql_password
       MSSQL_DATA_DIR: /var/opt/mssql/data
       MSSQL_PID: 'Developer' 
       MSSQL_TCP_PORT: 1433
@@ -42,6 +42,11 @@ services:
       - ./secrets:/var/opt/mssql/secrets
     networks:
     - mtgmvc-network
+    secrets:
+       - mssql_password
 networks: 
     mtgmvc-network:
         driver: bridge
+secrets:
+   mssql_password:
+     file: mssql_password.txt
