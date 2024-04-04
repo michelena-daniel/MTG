@@ -31,7 +31,6 @@ namespace MTGMVC.Controllers
 
         public async Task<IActionResult> Card(SetViewModel model)
         {
-            //var sets = await _service.GetAllSets();
             var sets = await _dataWriterService.GetAllSetNamesAsync();
             model.SetList = [];
 

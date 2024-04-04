@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace MTGMVC.Extensions
 {
@@ -9,10 +10,12 @@ namespace MTGMVC.Extensions
         {
             var options = new DistributedCacheEntryOptions
             {
-                AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromMinutes(1),
+                AbsoluteExpirationRelativeToNow = absoluteExpireTime ?? TimeSpan.FromMinutes(5),
                 SlidingExpiration = unusedExpireTime
             };
-            var jsonData = JsonSerializer.Serialize(data);
+
+            var jsonData = JsonSerializer.Serialize(data, JsonSerializerWriteOptions);
+
             await cache.SetStringAsync(recordId, jsonData, options);
         }
 
@@ -25,7 +28,18 @@ namespace MTGMVC.Extensions
                 return default;
             }
 
-            return JsonSerializer.Deserialize<T>(jsonData);
+            return JsonSerializer.Deserialize<T>(jsonData, JsonSerializerReadOptions);
         }
+
+        private static readonly JsonSerializerOptions JsonSerializerWriteOptions = new()
+        {
+            Converters = { new JsonStringEnumConverter() },
+            PropertyNameCaseInsensitive = true
+        };
+
+        private static readonly JsonSerializerOptions JsonSerializerReadOptions = new()
+        {
+            PropertyNameCaseInsensitive = true
+        };
     }
 }

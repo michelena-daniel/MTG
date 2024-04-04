@@ -47,7 +47,7 @@ namespace MTGMVC.Services
                     }
 
                     var setNames = await _setRepository.GetAllSetNames();
-                    await _cache.SetRecordAsync("sets", setNames, TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(60));
+                    await _cache.SetRecordAsync("sets", setNames);
                     return setNames;
                 }
 
