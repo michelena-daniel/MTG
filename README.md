@@ -5,3 +5,5 @@
 
 - Pseudo MVC pattern, .NET 8.
 - Dapper as micro-ORM for quick and light querying using SQL over linQ for now.
+- Redis for distributed caching.
+- Docker to run containers.
