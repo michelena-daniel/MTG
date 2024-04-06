@@ -7,7 +7,6 @@ using MTGMVC.DTOs.Scryfall.Sets;
 using MTGMVC.Models;
 using MTGMVC.DTOs.Scryfall.Cards;
 using MTGMVC.DTOs.Custom;
-using Pipelines.Sockets.Unofficial.Arenas;
 using StackExchange.Redis;
 using Newtonsoft.Json;
 
