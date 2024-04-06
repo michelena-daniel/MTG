@@ -1,6 +1,6 @@
 ﻿CREATE TABLE Card(
    [object]          VARCHAR(30) NOT NULL 
-  ,id                VARCHAR(30) PRIMARY KEY
+  ,id                UNIQUEIDENTIFIER PRIMARY KEY
   ,oracle_id         VARCHAR(30)
   ,multiverse_ids    VARCHAR(30)
   ,mtgo_id           INT  NOT NULL
