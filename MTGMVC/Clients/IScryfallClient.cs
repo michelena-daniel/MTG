@@ -8,6 +8,7 @@ namespace MTGMVC.Clients
     {
         Task<ScryfallSetRootDto> GetAllScryfallSetsAsync();
         Task<ScryfallCardsRoot> GetScryfallCardsBySetAsync(string setCode);
+        Task<ScryfallCardDto> GetCardByScryfallIdAsync(string scryfallId);
     }
 
     public class ScryfallClient : IScryfallClient
@@ -55,6 +56,16 @@ namespace MTGMVC.Clients
                 _logger.LogError("Unable to get set from Scryfall client {ex}", ex);
                 throw;
             }
+        }
+
+        public async Task<ScryfallCardDto> GetCardByScryfallIdAsync(string scryfallId)
+        {
+            var client = _httpClientFactory.CreateClient("Scryfall");
+
+            var content = await client.GetStringAsync($"cards/{scryfallId}");
+            var deserializedCard = JsonConvert.DeserializeObject<ScryfallCardDto>(content);
+
+            return deserializedCard ?? throw new Exception("Unable to search card by id {scryfallId}");
         }
     }
 }

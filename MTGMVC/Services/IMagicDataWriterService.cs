@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using AutoMapper;
+using Microsoft.Extensions.Caching.Distributed;
 using MTGMVC.Clients;
+using MTGMVC.DTOs.Custom;
 using MTGMVC.DTOs.Scryfall.Cards;
 using MTGMVC.Extensions;
 using MTGMVC.Models;
@@ -11,21 +13,24 @@ namespace MTGMVC.Services
     {
         Task<IList<SetModel>> GetAllSetNamesAsync();
         Task<ScryfallCardDto> GetRandomCardBySet(string setCode);
+        Task<Task> SaveCardAsync(ScryfallCardDto card);
     }
 
     public class MagicDataWriterService : IMagicDataWriterService
     {
-        private ISetRepository _setRepository;
-        private IScryfallClient _scryfallClient;
+        private readonly ISetRepository _setRepository;
+        private readonly IScryfallClient _scryfallClient;
         private ILogger<MagicDataWriterService> _logger;
-        private IDistributedCache _cache;
+        private readonly IDistributedCache _cache;
+        private IMapper _mapper;
 
-        public MagicDataWriterService(ISetRepository setRepository, IScryfallClient scryfallClient, ILogger<MagicDataWriterService> logger, IDistributedCache cache)
+        public MagicDataWriterService(ISetRepository setRepository, IScryfallClient scryfallClient, ILogger<MagicDataWriterService> logger, IDistributedCache cache, IMapper mapper)
         {
             _setRepository = setRepository;
             _scryfallClient = scryfallClient;
             _logger = logger;
             _cache = cache;
+            _mapper = mapper;
         }
 
         public async Task<IList<SetModel>> GetAllSetNamesAsync()
@@ -73,6 +78,13 @@ namespace MTGMVC.Services
                 _logger.LogError("Unable to get cards by set {ex}", ex);
                 throw;
             }
+        }
+
+        public async Task<Task> SaveCardAsync(ScryfallCardDto card)
+        {
+            var cleanCard = _mapper.Map<CleanCardDto>(card);
+            var isInserted = _setRepository.InsertCardAsync(cleanCard);
+            return Task.CompletedTask;
         }
 
         //public async Task<List<ScryfallCardDto>> GetPlayBoosterBySet()

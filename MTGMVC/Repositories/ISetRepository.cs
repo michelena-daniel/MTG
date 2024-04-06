@@ -5,6 +5,8 @@ using System;
 using MTGMVC.Repositories.CommandText;
 using MTGMVC.DTOs.Scryfall.Sets;
 using MTGMVC.Models;
+using MTGMVC.DTOs.Scryfall.Cards;
+using MTGMVC.DTOs.Custom;
 
 namespace MTGMVC.Repositories
 {
@@ -13,6 +15,7 @@ namespace MTGMVC.Repositories
         Task<int> InsertSet(ScryfallSetDto scryfallSet);
         Task<int> CountSets();
         Task<IList<SetModel>> GetAllSetNames();
+        Task<int> InsertCardAsync(CleanCardDto cleanCard);
     }
 
     public class SetRepository : BaseRepository, ISetRepository
@@ -48,6 +51,14 @@ namespace MTGMVC.Repositories
                     scryfallSet.FoilOnly,
                     scryfallSet.IconSvgUri
                 });
+            });
+        }
+
+        public async Task<int> InsertCardAsync(CleanCardDto cleanCard)
+        {
+            return await WithConnection(async conn =>
+            {
+                return await conn.ExecuteAsync(_commandText.InsertCard, cleanCard);
             });
         }
 

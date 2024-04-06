@@ -51,6 +51,7 @@ namespace MTGMVC.Controllers
             }
             //var card = await _service.GetRandomCardFromSet(model.SelectedSet);
             var card = await _dataWriterService.GetRandomCardBySet(model.SelectedSet);
+            var cardSaved = _dataWriterService.SaveCardAsync(card);
             ViewBag.CardName = card.Name;
             ViewBag.CardSetName = card.SetName;
             ViewBag.ImageUrl = card.ImageUris.Large;

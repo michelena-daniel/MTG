@@ -1,4 +1,5 @@
 using MTGMVC.Clients;
+using MTGMVC.Extensions;
 using MTGMVC.Repositories;
 using MTGMVC.Repositories.CommandText;
 using MTGMVC.Services;
@@ -23,6 +24,7 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
     options.InstanceName = "mtg-redis";
 });
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 //Register own services
 builder.Services.AddScoped<IMTGService, MTGService>();
