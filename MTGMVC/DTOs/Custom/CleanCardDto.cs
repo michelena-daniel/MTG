@@ -56,7 +56,7 @@ namespace MTGMVC.DTOs.Custom
         public string ManaCost { get; set; }
 
         [JsonProperty("cmc")]
-        public double Cmc { get; set; }
+        public float Cmc { get; set; }
 
         [JsonProperty("type_line")]
         public string TypeLine { get; set; }

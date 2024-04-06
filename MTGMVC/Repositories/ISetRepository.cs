@@ -7,6 +7,9 @@ using MTGMVC.DTOs.Scryfall.Sets;
 using MTGMVC.Models;
 using MTGMVC.DTOs.Scryfall.Cards;
 using MTGMVC.DTOs.Custom;
+using Pipelines.Sockets.Unofficial.Arenas;
+using StackExchange.Redis;
+using Newtonsoft.Json;
 
 namespace MTGMVC.Repositories
 {
@@ -54,11 +57,71 @@ namespace MTGMVC.Repositories
             });
         }
 
+
         public async Task<int> InsertCardAsync(CleanCardDto cleanCard)
         {
             return await WithConnection(async conn =>
             {
-                return await conn.ExecuteAsync(_commandText.InsertCard, cleanCard);
+                return await conn.ExecuteAsync(_commandText.InsertCard, new
+                {
+                    cleanCard.Object,
+                    cleanCard.Id,
+                    cleanCard.OracleId,
+                    MultiverseIds = JsonConvert.SerializeObject(cleanCard.MultiverseIds),
+                    cleanCard.MtgoId,
+                    cleanCard.ArenaId,
+                    cleanCard.TcgplayerId,
+                    cleanCard.CardmarketId,
+                    cleanCard.Name,
+                    cleanCard.Lang,
+                    cleanCard.ReleasedAt,
+                    cleanCard.Uri,
+                    cleanCard.ScryfallUri,
+                    cleanCard.Layout,
+                    cleanCard.HighresImage,
+                    cleanCard.ImageStatus,
+                    cleanCard.ManaCost,
+                    cleanCard.Cmc,
+                    cleanCard.TypeLine,
+                    cleanCard.OracleText,
+                    cleanCard.Power,
+                    cleanCard.Toughness,
+                    Colors = JsonConvert.SerializeObject(cleanCard.Colors),
+                    ColorIdentity = JsonConvert.SerializeObject(cleanCard.ColorIdentity),
+                    KeyWords = JsonConvert.SerializeObject(cleanCard.Keywords),
+                    Games = JsonConvert.SerializeObject(cleanCard.Games),
+                    cleanCard.Reserved,
+                    cleanCard.Foil,
+                    cleanCard.Nonfoil,
+                    Finishes = JsonConvert.SerializeObject(cleanCard.Finishes),
+                    cleanCard.Oversized,
+                    cleanCard.Promo,
+                    cleanCard.Reprint,
+                    cleanCard.Variation,
+                    cleanCard.SetId,
+                    cleanCard.SetName,
+                    cleanCard.SetType,
+                    cleanCard.SetUri,
+                    cleanCard.SetSearchUri,
+                    cleanCard.ScryfallSetUri,
+                    cleanCard.RulingsUri,
+                    cleanCard.PrintsSearchUri,
+                    cleanCard.CollectorNumber,
+                    cleanCard.Digital,
+                    cleanCard.Rarity,
+                    cleanCard.CardBackId,
+                    cleanCard.Artist,
+                    ArtistIds = JsonConvert.SerializeObject(cleanCard.ArtistIds),
+                    cleanCard.IllustrationId,
+                    cleanCard.BorderColor,
+                    cleanCard.Frame,
+                    cleanCard.FullArt,
+                    cleanCard.Textless,
+                    cleanCard.Booster,
+                    cleanCard.StorySpotlight,
+                    cleanCard.EdhrecRank,
+                    ProducedMana = JsonConvert.SerializeObject(cleanCard.ProducedMana)
+                });
             });
         }
 
